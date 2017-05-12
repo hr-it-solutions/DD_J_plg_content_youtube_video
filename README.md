@@ -1,5 +1,5 @@
 # DD_J_plg_content_youtube_video
-is a Joomla! content plugin to add YouTube videos with custom covers behind a two-click solution inside an article.
+is a Joomla! content pluginn to add YouTube videos inside an article.
 
 [![GPL Licence](https://badges.frapsoft.com/os/gpl/gpl.png?v=102)](https://opensource.org/licenses/GPL-2.0/)
 
@@ -14,7 +14,7 @@ Please take note of the privacy policy of your country. We privde no liability f
 # How to use
 The simplest way, insert our snipped into article:
 
-    {dd_yt_video}videoid:vxr4jDesTc4:cover:images/yourimagefile.jpg{/dd}
+    {dd_yt_video}videoid:XXXXXXXXXXX:cover:images/yourimagefile.jpg{/dd}
 
 Just two parameters needed:
 - The video ID (The video ID is the part between v= and & of the video URL)
