@@ -9,7 +9,7 @@ and a spcial two-click solution to embed the frame not bevore clicking to your c
 Recommended for Member States of the European Union as well as for other parties to the Agreement on the European Economic Area.
 If you dont wish the EU Privacy mode, extended privacy can also be specified at plugin settings.
 
-Please take note of the privacy policy of your country. We privde no liability for legal correctness!
+Please take note of the privacy policy of your country. We provide no liability for legal correctness!
 
 # How to use
 The simplest way, insert our whole snipped into your article:
