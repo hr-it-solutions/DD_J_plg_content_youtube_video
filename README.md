@@ -12,13 +12,16 @@ If you dont wish the EU Privacy mode, extended privacy can also be specified at 
 Please take note of the privacy policy of your country. We privde no liability for legal correctness!
 
 # How to use
-The simplest way, insert our snipped into article:
+The simplest way, insert our whole snipped into your article:
 
     {dd_yt_video}videoid:XXXXXXXXXXX:cover:images/yourimagefile.jpg{/dd}
 
 Just two parameters needed:
 - The video ID (The video ID is the part between v= and & of the video URL)
 - The cover image path (The cover image path to your image file at your website)
+
+Replace ***XXXXXXXXXXX*** with your Video ID and
+replace ***images/yourimagefile.jpg*** width your cover image path
 
 # System requirements
 Joomla 3.x +                                                                                <br>
