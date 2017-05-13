@@ -17,13 +17,13 @@ defined('_JEXEC') or die();
 
 class PlgContentDD_YouTube_VideoInstallerScript
 {
-	protected $name = 'DD YouTube Vide';
+	protected $name = 'DD YouTube Video';
 
 	protected $extensionsToEnable = array(
 
 		array(  'name'  => 'dd_youtube_video',
 				'type'  => 'plugin',
-				'group' => 'system')
+				'group' => 'content')
 
 	);
 
