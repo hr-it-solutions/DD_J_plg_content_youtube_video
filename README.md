@@ -15,7 +15,7 @@ as well as any YouTube Player url parameters like autoplay, size, etc..
 https://developers.google.com/youtube/player_parameters
 
 # How to use
-####The simplest way,
+#### The simplest way,
 insert this snipped into your article:
 
     {dd_yt_video}videoid:XXXXXXXXXXX:cover:images/yourimagefile.jpg{/dd}
@@ -29,7 +29,7 @@ replace ***images/yourimagefile.jpg*** width your cover image path
 
 ----
 
-####For extended usge,
+#### For extended usge,
 you can define your own insert snippet:
 
 An example with YouTube Player parameters:
