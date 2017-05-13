@@ -20,7 +20,7 @@ insert this snipped into your article:
 
     {dd_yt_video}videoid:XXXXXXXXXXX{/dd}
 
-Replace ***XXXXXXXXXXX*** with your Video ID
+Replace ***XXXXXXXXXXX*** with your Video ID<br>
 (The video ID is the part between v= and & of the YouTube video URL)
 
 
@@ -28,11 +28,11 @@ Or with a custom cover image
 
     {dd_yt_video}videoid:XXXXXXXXXXX:cover:images/yourimagefile.jpg{/dd}
 
-Replace ***images/yourimagefile.jpg*** width your cover image path
+Replace ***images/yourimagefile.jpg*** width your cover image path<br>
 (The relative cover image path to your image file at your website)
 
-Note: The attribute value pairs must always be as follows:
-attribute:value:attribute:value
+Note: The attribute value pairs must always be as follows:<br>
+attribute:value:attribute:value<br>
 Colon is assignment operator as well as separator.
 
 ----
