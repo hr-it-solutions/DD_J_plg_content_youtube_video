@@ -34,7 +34,19 @@
                     <option value="1">PLG_CONTENT_DD_YOUTUBE_VIDEO_EUPRIVACY_ON</option>
                     <option value="0">PLG_CONTENT_DD_YOUTUBE_VIDEO_EUPRIVACY_OFF</option>
                 </field>
+
+                <field name="defaultcover"
+                       type="media"
+                       directory="dd_youtube_video"
+                       default="media/plg_content_dd_youtube_video/img/defaultcover.png"
+                       size="40"
+                       label="PLG_CONTENT_DD_YOUTUBE_VIDEO_DEFAULT_COVER_LABEL"
+                       description="PLG_CONTENT_DD_YOUTUBE_VIDEO_DEFAULT_COVER_IMAGE_DESC"
+                />
             </fieldset>
         </fields>
     </config>
+    <media destination="plg_content_dd_youtube_video" folder="media">
+        <folder>img</folder>
+    </media>
 </extension>
