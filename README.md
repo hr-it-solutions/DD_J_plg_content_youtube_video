@@ -34,7 +34,7 @@ you can define your own insert snippet:
 
 An example with YouTube Player parameters:
 
-    {dd_yt_video}videoid:XXXXXXXXXXX:cover:images/yourimagefile.jpg:autoplay:1:control:1{/dd}
+    {dd_yt_video}videoid:XXXXXXXXXXX:cover:images/yourimagefile.jpg:autoplay:1:controls:1{/dd}
 
 An example with iframe parameters:
 
