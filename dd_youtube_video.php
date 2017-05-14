@@ -117,14 +117,14 @@ class PlgContentDD_YouTube_Video extends JPlugin
 			}
 		}
 
-		// VideoID
+		// YouTube VideoID
 		if (!isset($VideoParams['videoid']))
 		{
 			$this->app->enqueueMessage(JText::_('PLG_CONTENT_DD_YOUTUBE_VIDEO_ALERT_VIDEOID_MISSING'), 'warning');
 			$VideoParams['videoid'] = '';
 		}
 
-		// Cover
+		// Cover image path
 		if (isset($VideoParams['cover']))
 		{
 			$imagePath = $VideoParams['cover'];
@@ -134,7 +134,7 @@ class PlgContentDD_YouTube_Video extends JPlugin
 			$imagePath = $this->defaultCover;
 		}
 
-		// Width
+		// Img width attribute
 		if (isset($VideoParams['width']))
 		{
 			$width = $VideoParams['width'];
@@ -144,7 +144,7 @@ class PlgContentDD_YouTube_Video extends JPlugin
 			$width = 640;
 		}
 
-		// Height
+		// Img height attribute
 		if (isset($VideoParams['height']))
 		{
 			$height = $VideoParams['height'];
@@ -154,24 +154,31 @@ class PlgContentDD_YouTube_Video extends JPlugin
 			$height = 315;
 		}
 
+		// Img & iframe class attribute
+		if (isset($VideoParams['class']))
+		{
+			$class = 'class = "' . $VideoParams['class'] . '"';
+		}
+		else
+		{
+			$class = '';
+		}
+
 		// YouTube video url params
 		$YouTubeParams = $this->buildYouTubeVideoURLParams($VideoParams);
 
-		$nocookie = '-nocookie';
-		$img      = '';
-
-		if (!$this->euprivacy)
-		{
-			$nocookie = '';
-		}
-
-		$ifram = '<iframe width="' . $width . '" height="' . $height .
-			'" src="https://www.youtube' . $nocookie . '.com/embed/' . $VideoParams['videoid'] . $YouTubeParams . '"></iframe>';
-
 		if ($this->euprivacy)
 		{
-			$img = '<img id="dd_youtube_video' . $matchID . '" src="' . $imagePath . '" width="' . $width . '" height="' . $height . '"/>';
+			$nocookie = '-nocookie';
+			$img = '<img id="dd_youtube_video' . $matchID . '" src="' . $imagePath . '" width="' . $width . '" height="' . $height . '" ' . $class . '/>';
 		}
+		else
+		{
+			$nocookie = $img = '';
+		}
+
+		$ifram = '<iframe width="' . $width . '" height="' . $height . '" src="https://www.youtube' .
+			$nocookie . '.com/embed/' . $VideoParams['videoid'] . $YouTubeParams . '" ' . $class . '></iframe>';
 
 		return array("iframe" => $ifram, "img" => $img);
 
@@ -186,15 +193,17 @@ class PlgContentDD_YouTube_Video extends JPlugin
 	 */
 	private function buildYouTubeVideoURLParams($VideoParams)
 	{
+		// Parameter URL
 		$paramURL = '?';
 
+		// Autoplay setup
 		if ($this->euprivacy)
 		{
-			$paramURL = '?autoplay=1';
+			$paramURL .= 'autoplay=1';
 		}
 		elseif(isset($VideoParams['autoplay']))
 		{
-			$paramURL = '?autoplay=' . $VideoParams['autoplay'];
+			$paramURL .= 'autoplay=' . $VideoParams['autoplay'];
 		}
 
 		// YouTube possible params without autoplay!
@@ -204,6 +213,7 @@ class PlgContentDD_YouTube_Video extends JPlugin
 			'origin', 'playlist', 'playsinline', 'rel', 'showinfo', 'start'
 		);
 
+		// Parameter seup
 		foreach ($VideoParams as $key => $value)
 		{
 			if (in_array($key, $ytparams))
@@ -239,7 +249,6 @@ class PlgContentDD_YouTube_Video extends JPlugin
 	 */
 	private function setJavaScriptHeader($elementClickEvents)
 	{
-		// ScriptHeader
 		$scriptheader = "(function($){ $(document).ready(function() { $elementClickEvents }) })(jQuery);";
 		JFactory::getDocument()->addScriptDeclaration($scriptheader);
 	}
