@@ -45,9 +45,9 @@ An example with YouTube Player parameters:
 
     {dd_yt_video}videoid:XXXXXXXXXXX:cover:images/yourimagefile.jpg:autoplay:1:controls:1{/dd}
 
-An example with iframe parameters:
+An example with iframe and img parameters:
 
-    {dd_yt_video}videoid:XXXXXXXXXXX:cover:images/yourimagefile.jpg:width:640:height:360{/dd}
+    {dd_yt_video}videoid:XXXXXXXXXXX:cover:images/yourimagefile.jpg:width:640:height:360:class:pull-right{/dd}
 
 Parameters can also be combined. A Special usage has the cover image. You can also omit it from the plugin setting options to use a default cover from plugin setting options.
 
