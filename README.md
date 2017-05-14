@@ -10,10 +10,10 @@ If you don't wish the EU Privacy mode, extended privacy can also be specified at
 
 Please take note of the privacy policy of your country. We provide no liability for legal correctness!
 
-For extended usage it is possible to define iframe parameter (width, higth, class and framborder),
-img parameter (width, higth and class),
-as well as any YouTube Player url parameters like autoplay, size, etc..
-https://developers.google.com/youtube/player_parameters
+For extended usage it is possible to define iframe parameter (width, heigth, class and framborder),
+img parameter (width, heigth and class),
+as well as any YouTube Player url parameters like (autoplay, size, etc..
+https://developers.google.com/youtube/player_parameters)
 
 # How to use
 #### The simplest way,
