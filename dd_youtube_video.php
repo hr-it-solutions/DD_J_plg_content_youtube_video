@@ -70,7 +70,7 @@ class PlgContentDD_YouTube_Video extends JPlugin
 				$article->text = str_replace($match[0], $this->YouTubeVideoHTML($key, $match[1])['img'], $article->text);
 			}
 
-			$this->setJavaScriptHeader($elementScriptActions);
+			$this->setScriptStyleHeader($elementScriptActions);
 
 		}
 		// IFrame in html
@@ -157,7 +157,7 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		// Img & iframe class attribute
 		if (isset($VideoParams['class']))
 		{
-			$class = 'class = "' . $VideoParams['class'] . '"';
+			$class = $VideoParams['class'];
 		}
 		else
 		{
@@ -170,7 +170,7 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		if ($this->euprivacy)
 		{
 			$nocookie = '-nocookie';
-			$img = '<img id="dd_youtube_video' . $matchID . '" src="' . $imagePath . '" width="' . $width . '" height="' . $height . '" ' . $class . '/>';
+			$img = '<img id="dd_yt_video' . $matchID . '" src="' . $imagePath . '" width="' . $width . '" height="' . $height . '" class="dd_yt_video ' . $class . '"/>';
 		}
 		else
 		{
@@ -178,7 +178,7 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		}
 
 		$ifram = '<iframe width="' . $width . '" height="' . $height . '" src="https://www.youtube' .
-			$nocookie . '.com/embed/' . $VideoParams['videoid'] . $YouTubeParams . '" ' . $class . '></iframe>';
+			$nocookie . '.com/embed/' . $VideoParams['videoid'] . $YouTubeParams . '" class="' . $class . '"></iframe>';
 
 		return array("iframe" => $ifram, "img" => $img);
 
@@ -235,22 +235,26 @@ class PlgContentDD_YouTube_Video extends JPlugin
 	 */
 	private function buildjQueryElementClickEvent($matchID, $iframe)
 	{
-		return '$("#dd_youtube_video' . $matchID . '").click(function(){
+		return '$("#dd_yt_video' . $matchID . '").click(function(){
                     $(this).before(\'' . $iframe . '\').remove()
                 });';
 	}
 
 	/**
-	 * setJavaScriptHeader
+	 * setScriptStyleHeader
 	 *
 	 * @param   string  $elementClickEvents  the jQuery click events for all matchIDs
 	 *
 	 * @return void
 	 */
-	private function setJavaScriptHeader($elementClickEvents)
+	private function setScriptStyleHeader($elementClickEvents)
 	{
+		$doc = JFactory::getDocument();
+
 		$scriptheader = "(function($){ $(document).ready(function() { $elementClickEvents }) })(jQuery);";
-		JFactory::getDocument()->addScriptDeclaration($scriptheader);
+		$doc->addScriptDeclaration($scriptheader);
+
+		$doc->addStyleDeclaration('.dd_yt_video { cursor: pointer; }');
 	}
 
 	/**
