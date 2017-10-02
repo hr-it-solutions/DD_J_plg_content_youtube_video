@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.6.5" type="plugin" group="content" method="upgrade">
-    <name>PLG_CONTENT_DD_YOUTUBE_VIDEO</name>
+    <name>plg_content_dd_youtube_video</name>
     <version>1.0.0.3</version>
     <creationDate>13.05.2017</creationDate>
     <author>HR IT-Solutions Florian Häusler</author>
