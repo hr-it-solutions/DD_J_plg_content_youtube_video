@@ -48,8 +48,8 @@
                         name="coverdiv"
                         type="radio"
                         default="0"
-                        label="PLG_CONTENT_DD_YOUTUBE_VIDEO_DEFAULT_COVER_DIV_LABEL"
-                        description="PLG_CONTENT_DD_YOUTUBE_VIDEO_DEFAULT_COVER_DIV_DESC"
+                        label="PLG_CONTENT_DD_YOUTUBE_VIDEO_COVER_DIV_LABEL"
+                        description="PLG_CONTENT_DD_YOUTUBE_VIDEO_COVER_DIV_DESC"
                         class="btn-group btn-group-yesno">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
