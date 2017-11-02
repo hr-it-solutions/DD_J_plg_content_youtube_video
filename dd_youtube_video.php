@@ -25,6 +25,8 @@ class PlgContentDD_YouTube_Video extends JPlugin
 
 	protected $defaultCover;
 
+	protected $coverdiv;
+
 	protected $autoloadLanguage = true;
 
 	/**
@@ -48,8 +50,9 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		}
 
 		// Get plugin parameter
-		$this->euprivacy  = (int) $this->params->get('euprivacy');
-		$this->defaultCover  = htmlspecialchars($this->params->get('defaultcover'), ENT_QUOTES);
+		$this->euprivacy    = (int) $this->params->get('euprivacy');
+		$this->defaultCover = htmlspecialchars($this->params->get('defaultcover'), ENT_QUOTES);
+		$this->coverdiv     = (int) $this->params->get('coverdiv');
 
 		// Expression to search for (dd_yt_video)
 		$regex = '/{dd_yt_video}(.*?){\/dd}/s';
@@ -64,10 +67,10 @@ class PlgContentDD_YouTube_Video extends JPlugin
 
 			foreach ($matches as $key => $match)
 			{
-				$ifram = $this->YouTubeVideoHTML($key, $match[1])['iframe'];
-				$elementScriptActions .= $this->buildjQueryElementClickEvent($key, $ifram);
+				$ifram = $this->YouTubeVideoHTML($article->id . $key, $match[1])['iframe'];
+				$elementScriptActions .= $this->buildjQueryElementClickEvent($article->id . $key, $ifram);
 
-				$article->text = str_replace($match[0], $this->YouTubeVideoHTML($key, $match[1])['img'], $article->text);
+				$article->text = str_replace($match[0], $this->YouTubeVideoHTML($article->id . $key, $match[1])['img'], $article->text);
 			}
 
 			$this->setScriptStyleHeader($elementScriptActions);
@@ -78,7 +81,7 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		{
 			foreach ($matches as $key => $match)
 			{
-				$article->text = str_replace($match[0], $this->YouTubeVideoHTML($key, $match[1])['iframe'], $article->text);
+				$article->text = str_replace($match[0], $this->YouTubeVideoHTML($article->id . $key, $match[1])['iframe'], $article->text);
 			}
 		}
 	}
@@ -123,7 +126,6 @@ class PlgContentDD_YouTube_Video extends JPlugin
 			$this->app->enqueueMessage(JText::_('PLG_CONTENT_DD_YOUTUBE_VIDEO_ALERT_VIDEOID_MISSING'), 'warning');
 			$VideoParams['videoid'] = '';
 		}
-
 		// Cover image path
 		if (isset($VideoParams['cover']))
 		{
@@ -167,10 +169,15 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		// YouTube video url params
 		$YouTubeParams = $this->buildYouTubeVideoURLParams($VideoParams);
 
-		if ($this->euprivacy)
+		if ($this->euprivacy && !$this->coverdiv)
 		{
 			$nocookie = '-nocookie';
 			$img = '<img id="dd_yt_video' . $matchID . '" src="' . $imagePath . '" width="' . $width . '" height="' . $height . '" class="dd_yt_video ' . $class . '"/>';
+		}
+		else if ($this->euprivacy && $this->coverdiv)
+		{
+			$nocookie = '-nocookie';
+			$img = '<div id="dd_yt_video' . $matchID . '" style="background-image: url(\'' . $imagePath . '\'); width: ' . $width . 'px; height:' . $height . 'px;" class="dd_yt_video ' . $class . '"></div>';
 		}
 		else
 		{
