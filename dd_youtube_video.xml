@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.6.5" type="plugin" group="content" method="upgrade">
-    <name>plg_content_dd_youtube_video</name>
+    <name>PLG_CONTENT_DD_YOUTUBE_VIDEO</name>
     <version>1.0.0.3</version>
     <creationDate>13.05.2017</creationDate>
     <author>HR IT-Solutions Florian Häusler</author>
@@ -41,8 +41,19 @@
                        default="media/plg_content_dd_youtube_video/img/defaultcover.png"
                        size="40"
                        label="PLG_CONTENT_DD_YOUTUBE_VIDEO_DEFAULT_COVER_LABEL"
-                       description="PLG_CONTENT_DD_YOUTUBE_VIDEO_DEFAULT_COVER_IMAGE_DESC"
+                       description="PLG_CONTENT_DD_YOUTUBE_VIDEO_DEFAULT_COVER_DESC"
                 />
+
+                <field
+                        name="coverdiv"
+                        type="radio"
+                        default="0"
+                        label="PLG_CONTENT_DD_YOUTUBE_VIDEO_DEFAULT_COVER_DIV_LABEL"
+                        description="PLG_CONTENT_DD_YOUTUBE_VIDEO_DEFAULT_COVER_DIV_DESC"
+                        class="btn-group btn-group-yesno">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
             </fieldset>
         </fields>
     </config>
