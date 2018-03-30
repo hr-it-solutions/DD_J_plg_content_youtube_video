@@ -3,7 +3,7 @@
  * @package    DD_YouTube_Video
  *
  * @author     HR IT-Solutions Florian Häusler <info@hr-it-solutions.com>
- * @copyright  Copyright (C) 2017 - 2017 Didldu e.K. | HR IT-Solutions
+ * @copyright  Copyright (C) 2017 - 2018 Didldu e.K. | HR IT-Solutions
  * @license    http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 only
  **/
 
@@ -24,6 +24,10 @@ class PlgContentDD_YouTube_Video extends JPlugin
 	protected $euprivacy;
 
 	protected $defaultCover;
+
+	protected $coverdiv;
+
+	protected $allowfullscreen;
 
 	protected $autoloadLanguage = true;
 
@@ -48,8 +52,10 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		}
 
 		// Get plugin parameter
-		$this->euprivacy  = (int) $this->params->get('euprivacy');
-		$this->defaultCover  = htmlspecialchars($this->params->get('defaultcover'), ENT_QUOTES);
+		$this->euprivacy       = (int) $this->params->get('euprivacy');
+		$this->defaultCover    = htmlspecialchars($this->params->get('defaultcover'), ENT_QUOTES);
+		$this->coverdiv        = (int) $this->params->get('coverdiv');
+		$this->allowfullscreen = (int) $this->params->get('allowfullscreen');
 
 		// Expression to search for (dd_yt_video)
 		$regex = '/{dd_yt_video}(.*?){\/dd}/s';
@@ -64,13 +70,13 @@ class PlgContentDD_YouTube_Video extends JPlugin
 
 			foreach ($matches as $key => $match)
 			{
-				$ifram = $this->YouTubeVideoHTML($key, $match[1])['iframe'];
-				$elementScriptActions .= $this->buildjQueryElementClickEvent($key, $ifram);
+				$ifram = $this->YouTubeVideoHTML($article->id . $key, $match[1])['iframe'];
+				$elementScriptActions .= $this->buildjQueryElementClickEvent($article->id . $key, $ifram);
 
-				$article->text = str_replace($match[0], $this->YouTubeVideoHTML($key, $match[1])['img'], $article->text);
+				$article->text = str_replace($match[0], $this->YouTubeVideoHTML($article->id . $key, $match[1])['img'], $article->text);
 			}
 
-			$this->setJavaScriptHeader($elementScriptActions);
+			$this->setScriptStyleHeader($elementScriptActions);
 
 		}
 		// IFrame in html
@@ -78,7 +84,7 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		{
 			foreach ($matches as $key => $match)
 			{
-				$article->text = str_replace($match[0], $this->YouTubeVideoHTML($key, $match[1])['iframe'], $article->text);
+				$article->text = str_replace($match[0], $this->YouTubeVideoHTML($article->id . $key, $match[1])['iframe'], $article->text);
 			}
 		}
 	}
@@ -123,7 +129,6 @@ class PlgContentDD_YouTube_Video extends JPlugin
 			$this->app->enqueueMessage(JText::_('PLG_CONTENT_DD_YOUTUBE_VIDEO_ALERT_VIDEOID_MISSING'), 'warning');
 			$VideoParams['videoid'] = '';
 		}
-
 		// Cover image path
 		if (isset($VideoParams['cover']))
 		{
@@ -157,7 +162,7 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		// Img & iframe class attribute
 		if (isset($VideoParams['class']))
 		{
-			$class = 'class = "' . $VideoParams['class'] . '"';
+			$class = $VideoParams['class'];
 		}
 		else
 		{
@@ -167,18 +172,31 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		// YouTube video url params
 		$YouTubeParams = $this->buildYouTubeVideoURLParams($VideoParams);
 
-		if ($this->euprivacy)
+		if ($this->euprivacy && !$this->coverdiv)
 		{
 			$nocookie = '-nocookie';
-			$img = '<img id="dd_youtube_video' . $matchID . '" src="' . $imagePath . '" width="' . $width . '" height="' . $height . '" ' . $class . '/>';
+			$img = '<img id="dd_yt_video' . $matchID . '" src="' . $imagePath . '" width="' . $width . '" height="' . $height . '" class="dd_yt_video ' . $class . '"/>';
+		}
+		else if ($this->euprivacy && $this->coverdiv)
+		{
+			$nocookie = '-nocookie';
+			$img = '<div id="dd_yt_video' . $matchID . '" style="background-image: url(\'' . $imagePath . '\'); width: ' . $width . 'px; height:' . $height . 'px;" class="dd_yt_video ' . $class . '"></div>';
 		}
 		else
 		{
 			$nocookie = $img = '';
 		}
 
+		// Allow fullscreen
+		$allowfullscreen = '';
+
+		if ($this->allowfullscreen)
+		{
+			$allowfullscreen = ' allowfullscreen';
+		}
+
 		$ifram = '<iframe width="' . $width . '" height="' . $height . '" src="https://www.youtube' .
-			$nocookie . '.com/embed/' . $VideoParams['videoid'] . $YouTubeParams . '" ' . $class . '></iframe>';
+			$nocookie . '.com/embed/' . $VideoParams['videoid'] . $YouTubeParams . '" class="' . $class . '" ' . $allowfullscreen . '></iframe>';
 
 		return array("iframe" => $ifram, "img" => $img);
 
@@ -235,22 +253,26 @@ class PlgContentDD_YouTube_Video extends JPlugin
 	 */
 	private function buildjQueryElementClickEvent($matchID, $iframe)
 	{
-		return '$("#dd_youtube_video' . $matchID . '").click(function(){
+		return '$("#dd_yt_video' . $matchID . '").click(function(){
                     $(this).before(\'' . $iframe . '\').remove()
                 });';
 	}
 
 	/**
-	 * setJavaScriptHeader
+	 * setScriptStyleHeader
 	 *
 	 * @param   string  $elementClickEvents  the jQuery click events for all matchIDs
 	 *
 	 * @return void
 	 */
-	private function setJavaScriptHeader($elementClickEvents)
+	private function setScriptStyleHeader($elementClickEvents)
 	{
+		$doc = JFactory::getDocument();
+
 		$scriptheader = "(function($){ $(document).ready(function() { $elementClickEvents }) })(jQuery);";
-		JFactory::getDocument()->addScriptDeclaration($scriptheader);
+		$doc->addScriptDeclaration($scriptheader);
+
+		$doc->addStyleDeclaration('.dd_yt_video { cursor: pointer; }');
 	}
 
 	/**
