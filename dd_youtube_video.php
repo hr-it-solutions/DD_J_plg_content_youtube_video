@@ -3,7 +3,7 @@
  * @package    DD_YouTube_Video
  *
  * @author     HR IT-Solutions Florian Häusler <info@hr-it-solutions.com>
- * @copyright  Copyright (C) 2017 - 2017 Didldu e.K. | HR IT-Solutions
+ * @copyright  Copyright (C) 2017 - 2018 Didldu e.K. | HR IT-Solutions
  * @license    http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 only
  **/
 
@@ -26,6 +26,8 @@ class PlgContentDD_YouTube_Video extends JPlugin
 	protected $defaultCover;
 
 	protected $coverdiv;
+
+	protected $allowfullscreen;
 
 	protected $autoloadLanguage = true;
 
@@ -50,9 +52,10 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		}
 
 		// Get plugin parameter
-		$this->euprivacy    = (int) $this->params->get('euprivacy');
-		$this->defaultCover = htmlspecialchars($this->params->get('defaultcover'), ENT_QUOTES);
-		$this->coverdiv     = (int) $this->params->get('coverdiv');
+		$this->euprivacy       = (int) $this->params->get('euprivacy');
+		$this->defaultCover    = htmlspecialchars($this->params->get('defaultcover'), ENT_QUOTES);
+		$this->coverdiv        = (int) $this->params->get('coverdiv');
+		$this->allowfullscreen = (int) $this->params->get('allowfullscreen');
 
 		// Expression to search for (dd_yt_video)
 		$regex = '/{dd_yt_video}(.*?){\/dd}/s';
@@ -184,8 +187,16 @@ class PlgContentDD_YouTube_Video extends JPlugin
 			$nocookie = $img = '';
 		}
 
+		// Allow fullscreen
+		$allowfullscreen = '';
+
+		if ($this->allowfullscreen)
+		{
+			$allowfullscreen = ' allowfullscreen';
+		}
+
 		$ifram = '<iframe width="' . $width . '" height="' . $height . '" src="https://www.youtube' .
-			$nocookie . '.com/embed/' . $VideoParams['videoid'] . $YouTubeParams . '" class="' . $class . '"></iframe>';
+			$nocookie . '.com/embed/' . $VideoParams['videoid'] . $YouTubeParams . '" class="' . $class . '" ' . $allowfullscreen . '></iframe>';
 
 		return array("iframe" => $ifram, "img" => $img);
 
