@@ -31,6 +31,10 @@ class PlgContentDD_YouTube_Video extends JPlugin
 
 	protected $autoloadLanguage = true;
 
+	protected $bt_responsiveembed;
+
+	protected $gdpr_text;
+
 	/**
 	 * Plugin that place YouTube videos inside an article.
 	 *
@@ -52,10 +56,17 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		}
 
 		// Get plugin parameter
-		$this->euprivacy       = (int) $this->params->get('euprivacy');
-		$this->defaultCover    = htmlspecialchars($this->params->get('defaultcover'), ENT_QUOTES);
-		$this->coverdiv        = (int) $this->params->get('coverdiv');
-		$this->allowfullscreen = (int) $this->params->get('allowfullscreen');
+		$this->euprivacy          = (int) $this->params->get('euprivacy');
+		$this->defaultCover       = htmlspecialchars($this->params->get('defaultcover'), ENT_QUOTES);
+		$this->coverdiv           = (int) $this->params->get('coverdiv');
+		$this->allowfullscreen    = (int) $this->params->get('allowfullscreen');
+		$this->bt_responsiveembed = (int) $this->params->get('bt_responsiveembed');
+		$this->gdpr_text          = htmlspecialchars($this->params->get('gdpr_text'), ENT_QUOTES, 'UTF-8');
+
+		if($this->bt_responsiveembed || $this->gdpr_text)
+		{
+			JHtml::_('stylesheet', 'dd_youtube_video/dd_youtube_video.css', array('version' => 'auto', 'relative' => true));
+		}
 
 		// Expression to search for (dd_yt_video)
 		$regex = '/{dd_yt_video}(.*?){\/dd}/s';
@@ -172,15 +183,27 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		// YouTube video url params
 		$YouTubeParams = $this->buildYouTubeVideoURLParams($VideoParams);
 
+		// GDPR Text
+		$gdpr_text = $this->gdpr_text;
+		if($gdpr_text)
+		{
+			$gdpr_text = '<div class="dd_yt_video_gdpr_text">'. $gdpr_text .'</div>';
+		}
+
 		if ($this->euprivacy && !$this->coverdiv)
 		{
 			$nocookie = '-nocookie';
-			$img = '<img id="dd_yt_video' . $matchID . '" src="' . $imagePath . '" width="' . $width . '" height="' . $height . '" class="dd_yt_video ' . $class . '"/>';
+			$img = '<div class="dd_yt_video_outer">';
+			$img .= '<img id="dd_yt_video' . $matchID . '" src="' . $imagePath . '" width="' . $width . '" height="' . $height . '" class="dd_yt_video ' . $class . '"/>';
+			$img .= $gdpr_text;
+			$img .=	'</div>';
 		}
 		else if ($this->euprivacy && $this->coverdiv)
 		{
 			$nocookie = '-nocookie';
-			$img = '<div id="dd_yt_video' . $matchID . '" style="background-image: url(\'' . $imagePath . '\'); width: ' . $width . 'px; height:' . $height . 'px;" class="dd_yt_video ' . $class . '"></div>';
+			$img = '<div id="dd_yt_video_outer dd_yt_video' . $matchID . '" style="background-image: url(\'' . $imagePath . '\'); width: ' . $width . 'px; height:' . $height . 'px;" class="dd_yt_video ' . $class . '">';
+			$img .= $gdpr_text;
+			$img .= '</div>';
 		}
 		else
 		{
@@ -197,6 +220,11 @@ class PlgContentDD_YouTube_Video extends JPlugin
 
 		$ifram = '<iframe width="' . $width . '" height="' . $height . '" src="https://www.youtube' .
 			$nocookie . '.com/embed/' . $VideoParams['videoid'] . $YouTubeParams . '" class="' . $class . '" ' . $allowfullscreen . '></iframe>';
+
+		if ($this->bt_responsiveembed)
+		{
+			$ifram = '<div class="embed-responsive embed-responsive-16by9">' . $ifram . '</div>';
+		}
 
 		return array("iframe" => $ifram, "img" => $img);
 
