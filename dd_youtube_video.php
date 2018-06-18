@@ -193,15 +193,15 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		if ($this->euprivacy && !$this->coverdiv)
 		{
 			$nocookie = '-nocookie';
-			$img = '<div class="dd_yt_video_outer">';
-			$img .= '<img id="dd_yt_video' . $matchID . '" src="' . $imagePath . '" width="' . $width . '" height="' . $height . '" class="dd_yt_video ' . $class . '"/>';
+			$img = '<div id="dd_yt_video' . $matchID . '" class="dd_yt_video_outer">';
+			$img .= '<img src="' . $imagePath . '" width="' . $width . '" height="' . $height . '" class="dd_yt_video ' . $class . '"/>';
 			$img .= $gdpr_text;
 			$img .=	'</div>';
 		}
 		else if ($this->euprivacy && $this->coverdiv)
 		{
 			$nocookie = '-nocookie';
-			$img = '<div id="dd_yt_video_outer dd_yt_video' . $matchID . '" style="background-image: url(\'' . $imagePath . '\'); width: ' . $width . 'px; height:' . $height . 'px;" class="dd_yt_video ' . $class . '">';
+			$img = '<div id="dd_yt_video' . $matchID . '" class="dd_yt_video_outer" style="background-image: url(\'' . $imagePath . '\'); width: ' . $width . 'px; height:' . $height . 'px;" class="dd_yt_video ' . $class . '">';
 			$img .= $gdpr_text;
 			$img .= '</div>';
 		}
