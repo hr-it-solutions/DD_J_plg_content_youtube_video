@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.6.5" type="plugin" group="content" method="upgrade">
     <name>PLG_CONTENT_DD_YOUTUBE_VIDEO</name>
-    <version>1.0.0.5</version>
+    <version>1.0.0.6</version>
     <creationDate>13.05.2017</creationDate>
     <author>HR IT-Solutions Florian Häusler</author>
     <authorEmail>info@hr-it-solutions.com</authorEmail>
@@ -56,6 +56,24 @@
                 </field>
 
                 <field
+                        name="bt_responsiveembed"
+                        type="radio"
+                        default="0"
+                        label="PLG_CONTENT_DD_YOUTUBE_VIDEO_BT_RESPONSIVEEMBED_LABEL"
+                        description="PLG_CONTENT_DD_YOUTUBE_VIDEO_BT_RESPONSIVEEMBED_DESC"
+                        class="btn-group btn-group-yesno">
+                    <option value="0">PLG_CONTENT_DD_YOUTUBE_VIDEO_BT_RESPONSIVEEMBED_OFF</option>
+                    <option value="1">PLG_CONTENT_DD_YOUTUBE_VIDEO_BT_RESPONSIVEEMBED_ON</option>
+                </field>
+
+                <field name="gdpr_text"
+                       type="text"
+                       default=""
+                       label="Enter some text"
+                       description="Enter some text to show with the video cover"
+                       filter="safehtml" />
+
+                <field
                         name="allowfullscreen"
                         type="radio"
                         default="0"
@@ -70,5 +88,6 @@
     </config>
     <media destination="plg_content_dd_youtube_video" folder="media">
         <folder>img</folder>
+        <folder>css</folder>
     </media>
 </extension>
