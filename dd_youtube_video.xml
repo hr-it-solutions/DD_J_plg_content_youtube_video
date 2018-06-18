@@ -69,8 +69,8 @@
                 <field name="gdpr_text"
                        type="text"
                        default=""
-                       label="Enter some text"
-                       description="Enter some text to show with the video cover"
+                       label="PLG_CONTENT_DD_YOUTUBE_VIDEO_BT_RESPONSIVEEMBED_GDPR_TEXT_LABEL"
+                       description="PLG_CONTENT_DD_YOUTUBE_VIDEO_BT_RESPONSIVEEMBED_GDPR_TEXT_DESC"
                        filter="safehtml" />
 
                 <field
