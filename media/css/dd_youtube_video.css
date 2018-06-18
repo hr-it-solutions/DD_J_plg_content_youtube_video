@@ -6,4 +6,4 @@
  * @license    http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 only
  **/
 .dd_yt_video_outer { position: relative; }
-.dd_yt_video_outer .dd_yt_video_gdpr_text { position: absolute; background-color: #fff; color: #bd362f; font-weight: bold; box-sizing: border-box; display: block; left: 0; bottom: 0}
+.dd_yt_video_outer .dd_yt_video_gdpr_text { position: absolute; background-color: #fff; color: #bd362f; font-weight: bold; display: inline-block; bottom: 10px; padding: 8px 18px; left: 10px; border: 2px solid #c4c4c4; font-size: 12px; width: 80%; box-sizing: border-box;}

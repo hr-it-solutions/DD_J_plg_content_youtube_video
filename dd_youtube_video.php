@@ -65,7 +65,7 @@ class PlgContentDD_YouTube_Video extends JPlugin
 
 		if($this->bt_responsiveembed || $this->gdpr_text)
 		{
-			JHtml::_('stylesheet', 'dd_youtube_video/dd_youtube_video.css', array('version' => 'auto', 'relative' => true));
+			JHtml::_('stylesheet', 'plg_content_dd_youtube_video/dd_youtube_video.css', array('version' => 'auto', 'relative' => true));
 		}
 
 		// Expression to search for (dd_yt_video)
