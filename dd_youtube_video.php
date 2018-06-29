@@ -2,8 +2,8 @@
 /**
  * @package    DD_YouTube_Video
  *
- * @author     HR IT-Solutions Florian Häusler <info@hr-it-solutions.com>
- * @copyright  Copyright (C) 2017 - 2018 Didldu e.K. | HR IT-Solutions
+ * @author     HR-IT-Solutions Florian Häusler <info@hr-it-solutions.com>
+ * @copyright  Copyright (C) 2017 - 2018 HR-IT-Solutions GmbH
  * @license    http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 only
  **/
 
@@ -35,6 +35,8 @@ class PlgContentDD_YouTube_Video extends JPlugin
 
 	protected $gdpr_text;
 
+	protected $gdpr_lc;
+
 	/**
 	 * Plugin that place YouTube videos inside an article.
 	 *
@@ -62,8 +64,9 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		$this->allowfullscreen    = (int) $this->params->get('allowfullscreen');
 		$this->bt_responsiveembed = (int) $this->params->get('bt_responsiveembed');
 		$this->gdpr_text          = htmlspecialchars($this->params->get('gdpr_text'), ENT_QUOTES, 'UTF-8');
+		$this->gdpr_lc            = (int) $this->params->get('gdpr_lc');
 
-		if($this->bt_responsiveembed || $this->gdpr_text)
+		if($this->bt_responsiveembed || ($this->gdpr_text  || $this->gdpr_lc))
 		{
 			JHtml::_('stylesheet', 'plg_content_dd_youtube_video/dd_youtube_video.css', array('version' => 'auto', 'relative' => true));
 		}
@@ -185,9 +188,12 @@ class PlgContentDD_YouTube_Video extends JPlugin
 
 		// GDPR Text
 		$gdpr_text = $this->gdpr_text;
-		if($gdpr_text)
+		if($gdpr_text || $this->gdpr_lc)
 		{
-			$gdpr_text = '<div class="dd_yt_video_gdpr_text">'. $gdpr_text .'</div>';
+			if($this->gdpr_lc){
+				$gdpr_text = JText::_('PLG_CONTENT_DD_YOUTUBE_VIDEO_GDPR_LC') . $gdpr_text;
+			}
+			$gdpr_text = '<div class="dd_yt_video_gdpr_text">' . $gdpr_text .'</div>';
 		}
 
 		if ($this->euprivacy && !$this->coverdiv)
