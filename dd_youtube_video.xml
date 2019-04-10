@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.6.5" type="plugin" group="content" method="upgrade">
     <name>PLG_CONTENT_DD_YOUTUBE_VIDEO</name>
-    <version>1.0.0.7</version>
+    <version>1.0.0.8</version>
     <creationDate>13.05.2017</creationDate>
     <author>HR IT-Solutions Florian Häusler</author>
     <authorEmail>info@hr-it-solutions.com</authorEmail>
     <authorUrl>https://www.hr-it-solutions.com</authorUrl>
-    <copyright>Copyright (C) 2017 - 2018 HR-IT-Solutions GmbH</copyright>
+    <copyright>Copyright (C) 2017 - 2019 HR-IT-Solutions GmbH</copyright>
     <license>GNU/GPLv2 only</license>
     <description>PLG_CONTENT_DD_YOUTUBE_VIDEO_XML_DESCRIPTION</description>
     <files>
@@ -65,6 +65,40 @@
                     <option value="0">PLG_CONTENT_DD_YOUTUBE_VIDEO_OFF</option>
                     <option value="1">PLG_CONTENT_DD_YOUTUBE_VIDEO_ON</option>
                 </field>
+
+                <field type="spacer" name="spacer_youtubeapi_start" label="PLG_CONTENT_DD_YOUTUBE_API_HR" />
+
+                <field
+                        name="thumbnailapi"
+                        type="radio"
+                        default="0"
+                        label="PLG_CONTENT_DD_YOUTUBE_VIDEO_THUMBNAILAPI_LABEL"
+                        description="PLG_CONTENT_DD_YOUTUBE_VIDEO_THUMBNAILAPI_DESC"
+                        class="btn-group btn-group-yesno">
+                    <option value="1">PLG_CONTENT_DD_YOUTUBE_VIDEO_ON</option>
+                    <option value="0">PLG_CONTENT_DD_YOUTUBE_VIDEO_OFF</option>
+                </field>
+
+                <field
+                        name="thumbnailiamge"
+                        type="list"
+                        default="default"
+                        label="PLG_CONTENT_DD_YOUTUBE_VIDEO_THUMBNAILIMAGE_LABEL"
+                        description="PLG_CONTENT_DD_YOUTUBE_VIDEO_THUMBNAILIMAGE_DESC">
+                    <option value="default">default</option>
+                    <option value="1">thumbnail 1</option>
+                    <option value="2">thumbnail 2</option>
+                    <option value="3">thumbnail 3</option>
+                    <option value="0">fullsize preview</option>
+                    <option value="sddefault">standard</option>
+                    <option value="mqdefault">default</option>
+                    <option value="hqdefault">high</option>
+                    <option value="maxresdefault">maxres</option>
+                </field>
+
+                <field type="spacer" name="thumbnailapi_spacer" label="PLG_CONTENT_DD_YOUTUBE_VIDEO_THUMBNAILAPI_SPACER" />
+
+
 
                 <field type="spacer" name="spacer_gdpr_start" label="PLG_CONTENT_DD_YOUTUBE_VIDEO_HR" />
 
