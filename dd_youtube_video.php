@@ -3,7 +3,7 @@
  * @package    DD_YouTube_Video
  *
  * @author     HR-IT-Solutions Florian Häusler <info@hr-it-solutions.com>
- * @copyright  Copyright (C) 2017 - 2018 HR-IT-Solutions GmbH
+ * @copyright  Copyright (C) 2017 - 2019 HR-IT-Solutions GmbH
  * @license    http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 only
  **/
 
@@ -11,6 +11,8 @@ defined('_JEXEC') or die;
 
 jimport('joomla.plugin.plugin');
 jimport('joomla.access.access');
+
+jimport('joomla.filesystem.file');
 
 /**
  * Class PlgContentDD_YouTube_Video
@@ -26,6 +28,10 @@ class PlgContentDD_YouTube_Video extends JPlugin
 	protected $defaultCover;
 
 	protected $coverdiv;
+
+	protected $thumbnailapi;
+
+	protected $thumbnailiamge;
 
 	protected $allowfullscreen;
 
@@ -61,6 +67,8 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		$this->euprivacy          = (int) $this->params->get('euprivacy');
 		$this->defaultCover       = htmlspecialchars($this->params->get('defaultcover'), ENT_QUOTES);
 		$this->coverdiv           = (int) $this->params->get('coverdiv');
+		$this->thumbnailapi        = (int)($this->params->get('thumbnailapi'));
+		$this->thumbnailiamge     = htmlspecialchars($this->params->get('thumbnailiamge'), ENT_QUOTES);
 		$this->allowfullscreen    = (int) $this->params->get('allowfullscreen');
 		$this->bt_responsiveembed = (int) $this->params->get('bt_responsiveembed');
 		$this->gdpr_text          = htmlspecialchars($this->params->get('gdpr_text'), ENT_QUOTES, 'UTF-8');
@@ -196,6 +204,19 @@ class PlgContentDD_YouTube_Video extends JPlugin
 			$gdpr_text = '<div class="dd_yt_video_gdpr_text">' . $gdpr_text .'</div>';
 		}
 
+		// YouTube Thumbnails API
+		if ($this->euprivacy && $this->thumbnailapi)
+		{
+			$this->getThumbnailsAPI($VideoParams['videoid']);
+
+			$imagePathAPILoaded = 'images/dd_youtube_video/' . $VideoParams['videoid'] . '/' . $this->thumbnailiamge . '.jpg';
+
+			if (JFile::exists(JPATH_ROOT . '/' .$imagePathAPILoaded))
+			{
+				$imagePath = JUri::base() . $imagePathAPILoaded;
+			}
+		}
+
 		if ($this->euprivacy && !$this->coverdiv)
 		{
 			$nocookie = '-nocookie';
@@ -317,5 +338,42 @@ class PlgContentDD_YouTube_Video extends JPlugin
 	private function throwMessageInvalidSnipped()
 	{
 		$this->app->enqueueMessage(JText::_('PLG_CONTENT_DD_YOUTUBE_VIDEO_ALERT_INVALID_SNIPPED'), 'warning');
+	}
+
+	/**
+	 * generateThumbnailsAPI
+	 *
+	 * @param $video_id
+	 * @since 1.0.0.8
+	 *
+	 * @return void
+	 */
+	protected function genertaThumbnailsAPI($video_id){
+		
+		$path = JPATH_SITE . '/images/dd_youtube_video/' . $video_id . '/';
+		
+		$curl = curl_init();
+
+		$types = array('0', '1', '2', '3',
+		               'default', 'sddefault', 'mqdefault', 'hqdefault', 'maxresdefault');
+
+		foreach ($types as $type)
+		{
+			$thumburl = 'http://img.youtube.com/vi/' . $video_id . '/' . $type . '.jpg';
+
+			curl_setopt($curl, CURLOPT_URL, $thumburl);
+			curl_setopt($curl, CURLOPT_HEADER, 0);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+			$image = curl_exec($curl);
+			$info  = curl_getinfo($curl);
+
+			if ($info['http_code'] == 200)
+			{
+				JFile::write($path . $type . '.jpg', $image);
+			}
+		}
+
+		curl_close($curl);
 	}
 }

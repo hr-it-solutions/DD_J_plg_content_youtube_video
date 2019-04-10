@@ -15,6 +15,10 @@ img parameter (width, heigth and class),
 as well as any YouTube Player url parameters like (autoplay, size, etc..
 https://developers.google.com/youtube/player_parameters)
 
+### YouTube API Thumbnail Generator
+You can also enable to store thumbnails from YouTube API directly at your server to be konfirm with privacy.
+PHP Extension CURL is required. The Thumbnail API must be anabled and can only be defined at EU Privacy 'ON' mode.
+
 # How to use
 #### The simplest way,
 insert this snipped into your article:
@@ -53,7 +57,8 @@ Parameters can also be combined. A Special usage has the cover image. You can al
 
 # System requirements
 Joomla 3.x +                                                                                <br>
-PHP 5.6.13 or newer is recommended.
+PHP 5.6.13 or newer is recommended.															<br>
+PHP CURL (Only for the YouTube API feature, if enabled at Plugin settings)
 
 # DD_ Namespace
 DD_ stands for  **D**idl**d**u e.K. | HR IT-Solutions (Brand recognition)                   <br>
