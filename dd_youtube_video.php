@@ -246,7 +246,7 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		}
 
 		$ifram = '<iframe width="' . $width . '" height="' . $height . '" src="https://www.youtube' .
-			$nocookie . '.com/embed/' . $VideoParams['videoid'] . $YouTubeParams . '" class="' . $class . '" ' . $allowfullscreen . '></iframe>';
+			$nocookie . '.com/embed/' . $VideoParams['videoid'] . $YouTubeParams . '" class="dd_yt_video_frame ' . $class . '" ' . $allowfullscreen . '></iframe>';
 
 		if ($this->bt_responsiveembed)
 		{
