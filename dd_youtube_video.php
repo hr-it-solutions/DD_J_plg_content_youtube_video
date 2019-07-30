@@ -207,7 +207,7 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		// YouTube Thumbnails API
 		if ($this->euprivacy && $this->thumbnailapi)
 		{
-			$this->getThumbnailsAPI($VideoParams['videoid']);
+			$this->genertaThumbnailsAPI($VideoParams['videoid']);
 
 			$imagePathAPILoaded = 'images/dd_youtube_video/' . $VideoParams['videoid'] . '/' . $this->thumbnailiamge . '.jpg';
 
