@@ -5,6 +5,6 @@
  * @copyright  Copyright (C) 2017 - 2018 HR-IT-Solutions GmbH
  * @license    http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 only
  **/
-.dd_yt_video_outer { position: relative; margin-left: auto; margin-right: auto;}
+.dd_yt_video_outer { position: relative; margin-left: auto; margin-right: auto; max-width: 100%}
 .dd_yt_video_outer .dd_yt_video_gdpr_text { position: absolute; cursor: pointer; background-color: rgba(0,0,0,0.5); color: #fff; font-weight: bold; display: inline-block; padding: 8px 18px; padding-top: 8px; left: 0; border: 2px solid #c4c4c4; font-size: 12px; width: 100%; box-sizing: border-box; height: 100%; text-align: center;  padding-top: 75px; text-shadow: 2px 2px 1px #000;}
 .dd_yt_video_frame { margin-left: auto;margin-right: auto;display: block;}
