@@ -35,13 +35,23 @@ class PlgContentDD_YouTube_Video extends JPlugin
 
 	protected $allowfullscreen;
 
+	protected $auto_width;
+
+	protected $auto_center;
+
+	protected $playbutton;
+
 	protected $autoloadLanguage = true;
 
 	protected $bt_responsiveembed;
 
+	protected $gdpr_text_simple;
+
 	protected $gdpr_text;
 
 	protected $gdpr_lc;
+
+	protected $gdpr_text_on_hover;
 
 	/**
 	 * Plugin that place YouTube videos inside an article.
@@ -67,12 +77,17 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		$this->euprivacy          = (int) $this->params->get('euprivacy');
 		$this->defaultCover       = htmlspecialchars($this->params->get('defaultcover'), ENT_QUOTES);
 		$this->coverdiv           = (int) $this->params->get('coverdiv');
-		$this->thumbnailapi        = (int)($this->params->get('thumbnailapi'));
+		$this->thumbnailapi       = (int) ($this->params->get('thumbnailapi'));
 		$this->thumbnailiamge     = htmlspecialchars($this->params->get('thumbnailiamge'), ENT_QUOTES);
 		$this->allowfullscreen    = (int) $this->params->get('allowfullscreen');
 		$this->bt_responsiveembed = (int) $this->params->get('bt_responsiveembed');
-		$this->gdpr_text          = htmlspecialchars($this->params->get('gdpr_text'), ENT_QUOTES, 'UTF-8');
+		$this->auto_width         = (int) $this->params->get('auto_width');
+		$this->auto_center        = (int) $this->params->get('auto_center');
+		$this->playbutton         = (int) $this->params->get('playbutton');
+		$this->gdpr_text_simple   = htmlspecialchars($this->params->get('gdpr_text_simple'), ENT_QUOTES, 'UTF-8');
+		$this->gdpr_text          = $this->params->get('gdpr_text');
 		$this->gdpr_lc            = (int) $this->params->get('gdpr_lc');
+		$this->gdpr_text_on_hover = (int) $this->params->get('gdpr_text_on_hover');
 
 		if($this->bt_responsiveembed || ($this->gdpr_text  || $this->gdpr_lc))
 		{
@@ -217,19 +232,41 @@ class PlgContentDD_YouTube_Video extends JPlugin
 			}
 		}
 
+		// Outer + Auto Classes
+		$outerClass = 'dd_yt_video_outer';
+		if ($this->auto_width)
+		{
+			$outerClass .= ' auto_width';
+		}
+		if ($this->auto_center)
+		{
+			$outerClass .= ' auto_center';
+		}
+		if($this->gdpr_text_on_hover){
+			$outerClass .= ' on_hover';
+		}
+
+		$playbutton = '';
+		if($this->playbutton){
+			$playbuttonStyle  = 'background-image: url(\'' . JUri::root() . 'media/plg_content_dd_youtube_video/img/playbutton.png' . '\')';
+			$playbutton       .= '<div class="dd_yt_video_playbutton" style="' . $playbuttonStyle . '"></div>';
+		}
+
 		if ($this->euprivacy && !$this->coverdiv)
 		{
 			$nocookie = '-nocookie';
-			$img = '<div id="dd_yt_video' . $matchID . '" class="dd_yt_video_outer">';
+			$img = '<div id="dd_yt_video' . $matchID . '" ';
+				$img .= 'class="' . $outerClass . '">';
 			$img .= '<img src="' . $imagePath . '" width="' . $width . '" height="' . $height . '" class="dd_yt_video ' . $class . '"/>';
-			$img .= $gdpr_text;
+			$img .= $gdpr_text . $playbutton;
 			$img .=	'</div>';
 		}
 		else if ($this->euprivacy && $this->coverdiv)
 		{
 			$nocookie = '-nocookie';
-			$img = '<div id="dd_yt_video' . $matchID . '" class="dd_yt_video_outer" style="background-image: url(\'' . $imagePath . '\'); width: ' . $width . 'px; height:' . $height . 'px;" class="dd_yt_video ' . $class . '">';
-			$img .= $gdpr_text;
+			$img = '<div id="dd_yt_video' . $matchID . '" ';
+			$img .='class="' . $outerClass . '" style="background-image: url(\'' . $imagePath . '\'); width: ' . $width . 'px; height:' . $height . 'px;" class="dd_yt_video ' . $class . '">';
+			$img .= $gdpr_text . $playbutton;
 			$img .= '</div>';
 		}
 		else
@@ -308,7 +345,9 @@ class PlgContentDD_YouTube_Video extends JPlugin
 	 */
 	private function buildjQueryElementClickEvent($matchID, $iframe)
 	{
-		return '$("#dd_yt_video' . $matchID . '").click(function(){
+		return '$("#dd_yt_video' . $matchID . ' a, #dd_yt_video' . $matchID . ' button").click(function(e){
+                    e.stopPropagation();; });
+				$("#dd_yt_video' . $matchID . '").click(function(){
                     $(this).before(\'' . $iframe . '\').remove()
                 });';
 	}
