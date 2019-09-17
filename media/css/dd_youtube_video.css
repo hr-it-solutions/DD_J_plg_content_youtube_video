@@ -2,9 +2,15 @@
  * @package    DD_YouTube_Video
  *
  * @author     HR-IT-Solutions Florian Häusler <info@hr-it-solutions.com>
- * @copyright  Copyright (C) 2017 - 2018 HR-IT-Solutions GmbH
+ * @copyright  Copyright (C) 2017 - 2019 HR-IT-Solutions GmbH
  * @license    http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 only
  **/
-.dd_yt_video_outer { position: relative; margin-left: auto; margin-right: auto; max-width: 100%}
-.dd_yt_video_outer .dd_yt_video_gdpr_text { position: absolute; cursor: pointer; background-color: rgba(0,0,0,0.5); color: #fff; font-weight: bold; display: inline-block; padding: 8px 18px; padding-top: 8px; left: 0; border: 2px solid #c4c4c4; font-size: 12px; width: 100%; box-sizing: border-box; height: 100%; text-align: center;  padding-top: 75px; text-shadow: 2px 2px 1px #000;}
-.dd_yt_video_frame { margin-left: auto;margin-right: auto;display: block;}
+.dd_yt_video_outer { position: relative; display: inline-block; margin-left: auto; margin-right: auto; max-width: 100%; background-size: cover; background-position: center; background-repeat: no-repeat}
+.dd_yt_video_outer .dd_yt_video_gdpr_text { position: absolute; z-index: 2; cursor: pointer; background-color: rgba(0,0,0,0.5); color: #fff; font-weight: bold; display: inline-block; padding: 8px 18px; left: 0; border: 2px solid #c4c4c4; font-size: 12px; width: 100%; box-sizing: border-box; height: 100%; text-align: center;  padding-top: 75px; text-shadow: 2px 2px 1px #000;}
+.dd_yt_video_outer.auto_width, .dd_yt_video_outer.auto_width img, .dd_yt_video_outer.auto_width .dd_yt_video_frame { width: 100%; height: auto;}
+.dd_yt_video_outer.auto_center .dd_yt_video_frame, .dd_yt_video_outer.auto_center img {margin-left: auto; margin-right: auto; display: inline-block}
+.dd_yt_video_playbutton {width: 70px; height: 49px;  margin: -25px 0;  position: absolute; top: 50%; left: 50%;  -ms-transform: translate(-50%); transform: translate(-50%); z-index: 1}
+.dd_yt_video_outer.on_hover .dd_yt_video_playbutton {opacity: 0.8}
+.dd_yt_video_outer.on_hover .dd_yt_video_gdpr_text {opacity: 0}
+.dd_yt_video_outer.on_hover:hover .dd_yt_video_playbutton, .dd_yt_video_outer.on_hover:hover .dd_yt_video_gdpr_text {opacity: 1}
+@media only screen and (max-width: 460px) { .dd_yt_video_outer .dd_yt_video_gdpr_text { padding: 20px; }}

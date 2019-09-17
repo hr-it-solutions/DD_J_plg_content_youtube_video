@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.6.5" type="plugin" group="content" method="upgrade">
     <name>PLG_CONTENT_DD_YOUTUBE_VIDEO</name>
-    <version>1.0.0.9</version>
+    <version>1.0.2.0</version>
     <creationDate>13.05.2017</creationDate>
     <author>HR IT-Solutions Florian Häusler</author>
     <authorEmail>info@hr-it-solutions.com</authorEmail>
@@ -18,7 +18,9 @@
         <language tag="en-GB">language/en-GB/en-GB.plg_content_dd_youtube_video.ini</language>
     </languages>
     <updateservers>
-        <server type="collection" priority="1" name="HR IT-Solutions Updates">http://www.hr-it-solutions.com/jextensions/update.xml</server>
+        <server type="collection" priority="1" name="HR IT-Solutions Updates">
+            http://www.hr-it-solutions.com/jextensions/update.xml
+        </server>
     </updateservers>
     <config>
         <fields name="params">
@@ -66,7 +68,31 @@
                     <option value="1">PLG_CONTENT_DD_YOUTUBE_VIDEO_ON</option>
                 </field>
 
-                <field type="spacer" name="spacer_youtubeapi_start" label="PLG_CONTENT_DD_YOUTUBE_API_HR" />
+                <field type="spacer" name="spacer_autostyling" label="PLG_CONTENT_DD_YOUTUBE_VIDEO_HR"/>
+
+                <field
+                        name="auto_width"
+                        type="radio"
+                        default="0"
+                        label="PLG_CONTENT_DD_YOUTUBE_VIDEO_AUTO_WIDTH_LABEL"
+                        description="PLG_CONTENT_DD_YOUTUBE_VIDEO_AUTO_WIDTH_DESC"
+                        class="btn-group btn-group-yesno">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+
+                <field
+                        name="auto_center"
+                        type="radio"
+                        default="0"
+                        label="PLG_CONTENT_DD_YOUTUBE_VIDEO_AUTO_CENTER_LABEL"
+                        description="PLG_CONTENT_DD_YOUTUBE_VIDEO_AUTO_CENTER_DESC"
+                        class="btn-group btn-group-yesno">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+
+                <field type="spacer" name="spacer_youtubeapi_start" label="PLG_CONTENT_DD_YOUTUBE_API_HR"/>
 
                 <field
                         name="thumbnailapi"
@@ -96,18 +122,22 @@
                     <option value="maxresdefault">maxres</option>
                 </field>
 
-                <field type="spacer" name="thumbnailapi_spacer" label="PLG_CONTENT_DD_YOUTUBE_VIDEO_THUMBNAILAPI_SPACER" />
+                <field type="spacer" name="thumbnailapi_spacer"
+                       label="PLG_CONTENT_DD_YOUTUBE_VIDEO_THUMBNAILAPI_SPACER"/>
 
 
+                <field
+                        name="allowfullscreen"
+                        type="radio"
+                        default="0"
+                        label="PLG_CONTENT_DD_YOUTUBE_VIDEO_ALLOWFULLSCREEN_LABEL"
+                        description="PLG_CONTENT_DD_YOUTUBE_VIDEO_ALLOWFULLSCREEN_DESC"
+                        class="btn-group btn-group-yesno">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
 
-                <field type="spacer" name="spacer_gdpr_start" label="PLG_CONTENT_DD_YOUTUBE_VIDEO_HR" />
-
-                <field name="gdpr_text"
-                       type="text"
-                       default=""
-                       label="PLG_CONTENT_DD_YOUTUBE_VIDEO_GDPR_TEXT_LABEL"
-                       description="PLG_CONTENT_DD_YOUTUBE_VIDEO_GDPR_TEXT_DESC"
-                       filter="safehtml" />
+                <field type="spacer" name="spacer_allowfullscreen" label="PLG_CONTENT_DD_YOUTUBE_VIDEO_HR"/>
 
                 <field
                         name="gdpr_lc"
@@ -120,18 +150,44 @@
                     <option value="1">PLG_CONTENT_DD_YOUTUBE_VIDEO_LOAD</option>
                 </field>
 
-                <field type="spacer" name="spacer_gdpr_end" label="PLG_CONTENT_DD_YOUTUBE_VIDEO_GDPR_LC_SPACER" />
+                <field name="gdpr_text_simple"
+                       type="text"
+                       default=""
+                       label="PLG_CONTENT_DD_YOUTUBE_VIDEO_GDPR_TEXT_SIMPLE_LABEL"
+                       description="PLG_CONTENT_DD_YOUTUBE_VIDEO_GDPR_TEXT_SIMPLE_DESC"
+                       filter="safehtml"/>
 
                 <field
-                        name="allowfullscreen"
+                        name="playbutton"
                         type="radio"
                         default="0"
-                        label="PLG_CONTENT_DD_YOUTUBE_VIDEO_ALLOWFULLSCREEN_LABEL"
-                        description="PLG_CONTENT_DD_YOUTUBE_VIDEO_ALLOWFULLSCREEN_DESC"
+                        label="PLG_CONTENT_DD_YOUTUBE_VIDEO_PLAYBUTTON_LABEL"
+                        description="PLG_CONTENT_DD_YOUTUBE_VIDEO_PLAYBUTTON_DESC"
+                        class="btn-group btn-group-yesno">
+                    <option value="1">JSHOW</option>
+                    <option value="0">JHIDE</option>
+                </field>
+
+                <field
+                        name="gdpr_text_on_hover"
+                        type="radio"
+                        default="0"
+                        label="PLG_CONTENT_DD_YOUTUBE_VIDEO_GDPR_TEXT_ON_HOVER_LABEL"
+                        description="PLG_CONTENT_DD_YOUTUBE_VIDEO_GDPR_TEXT_ON_HOVER_DESC"
                         class="btn-group btn-group-yesno">
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
+
+                <field type="spacer" name="spacer_gdpr_start" label="PLG_CONTENT_DD_YOUTUBE_VIDEO_HR"/>
+
+                <field name="gdpr_text"
+                       type="editor"
+                       default=""
+                       label="PLG_CONTENT_DD_YOUTUBE_VIDEO_GDPR_TEXT_LABEL"
+                       description="PLG_CONTENT_DD_YOUTUBE_VIDEO_GDPR_TEXT_DESC"
+                       filter="safehtml"/>
+
             </fieldset>
         </fields>
     </config>
