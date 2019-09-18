@@ -47,8 +47,6 @@ class PlgContentDD_YouTube_Video extends JPlugin
 
 	protected $gdpr_text_simple;
 
-	protected $gdpr_text;
-
 	protected $gdpr_lc;
 
 	protected $gdpr_text_on_hover;
@@ -85,11 +83,10 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		$this->auto_center        = (int) $this->params->get('auto_center');
 		$this->playbutton         = (int) $this->params->get('playbutton');
 		$this->gdpr_text_simple   = htmlspecialchars($this->params->get('gdpr_text_simple'), ENT_QUOTES, 'UTF-8');
-		$this->gdpr_text          = $this->params->get('gdpr_text');
 		$this->gdpr_lc            = (int) $this->params->get('gdpr_lc');
 		$this->gdpr_text_on_hover = (int) $this->params->get('gdpr_text_on_hover');
 
-		if($this->bt_responsiveembed || ($this->gdpr_text  || $this->gdpr_lc))
+		if($this->bt_responsiveembed || $this->gdpr_lc)
 		{
 			JHtml::_('stylesheet', 'plg_content_dd_youtube_video/dd_youtube_video.css', array('version' => 'auto', 'relative' => true));
 		}
@@ -210,11 +207,11 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		$YouTubeParams = $this->buildYouTubeVideoURLParams($VideoParams);
 
 		// GDPR Text
-		$gdpr_text = $this->gdpr_text;
+		$gdpr_text = '';
 		if($gdpr_text || $this->gdpr_lc)
 		{
 			if($this->gdpr_lc){
-				$gdpr_text = JText::_('PLG_CONTENT_DD_YOUTUBE_VIDEO_GDPR_LC') . $gdpr_text;
+				$gdpr_text = JText::_('PLG_CONTENT_DD_YOUTUBE_VIDEO_GDPR_LC');
 			}
 			$gdpr_text = '<div class="dd_yt_video_gdpr_text">' . $gdpr_text .'</div>';
 		}
