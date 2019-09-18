@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.6.5" type="plugin" group="content" method="upgrade">
     <name>PLG_CONTENT_DD_YOUTUBE_VIDEO</name>
-    <version>1.0.2.0</version>
+    <version>1.0.2.1</version>
     <creationDate>13.05.2017</creationDate>
     <author>HR IT-Solutions Florian Häusler</author>
     <authorEmail>info@hr-it-solutions.com</authorEmail>
@@ -178,15 +178,6 @@
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
                 </field>
-
-                <field type="spacer" name="spacer_gdpr_start" label="PLG_CONTENT_DD_YOUTUBE_VIDEO_HR"/>
-
-                <field name="gdpr_text"
-                       type="editor"
-                       default=""
-                       label="PLG_CONTENT_DD_YOUTUBE_VIDEO_GDPR_TEXT_LABEL"
-                       description="PLG_CONTENT_DD_YOUTUBE_VIDEO_GDPR_TEXT_DESC"
-                       filter="safehtml"/>
 
             </fieldset>
         </fields>
