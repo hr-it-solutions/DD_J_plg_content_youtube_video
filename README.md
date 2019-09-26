@@ -61,9 +61,8 @@ PHP 5.6.13 or newer is recommended.															<br>
 PHP CURL (Only for the YouTube API feature, if enabled at Plugin settings)
 
 # DD_ Namespace
-DD_ is a namespace prefix, provided to avoid element name conflicts.
+DD_ is a namespace prefix, provided to avoid element name conflicts.						<br>
 
-<br>
-Author: HR IT-Solutions Florian Häusler https://www.hr-it-solution.com            <br>
-Copyright: (C) 2018 - 2019 HR-IT-Solutions GmbH                                   <br>
-http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 only
+Author: HR-IT-Solutions Florian Häusler <info@hr-it-solutions.com> 							<br>
+Copyright: (C) 2018 - 2019 HR-IT-Solutions GmbH 											<br>
+License: GNU/GPLv2 only http://www.gnu.org/licenses/gpl-2.0.html

@@ -86,10 +86,7 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		$this->gdpr_lc            = (int) $this->params->get('gdpr_lc');
 		$this->gdpr_text_on_hover = (int) $this->params->get('gdpr_text_on_hover');
 
-		if($this->bt_responsiveembed || $this->gdpr_lc)
-		{
-			JHtml::_('stylesheet', 'plg_content_dd_youtube_video/dd_youtube_video.css', array('version' => 'auto', 'relative' => true));
-		}
+		JHtml::_('stylesheet', 'plg_content_dd_youtube_video/dd_youtube_video.css', array('version' => 'auto', 'relative' => true));
 
 		// Expression to search for (dd_yt_video)
 		$regex = '/{dd_yt_video}(.*?){\/dd}/s';
@@ -207,7 +204,7 @@ class PlgContentDD_YouTube_Video extends JPlugin
 		$YouTubeParams = $this->buildYouTubeVideoURLParams($VideoParams);
 
 		// GDPR Text
-		$gdpr_text = '';
+		$gdpr_text = $this->gdpr_text_simple;
 		if($gdpr_text || $this->gdpr_lc)
 		{
 			if($this->gdpr_lc){
